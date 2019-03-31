@@ -1,6 +1,5 @@
 const Joi = require('joi');
 const express = require('express');
-const express = express();
 const router = express.Router();
 
 const testimonies = [
