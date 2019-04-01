@@ -7,12 +7,15 @@ const config = require("config");
 const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
 const _ = require("lodash");
+const mongoose = require("mongoose");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 const users = require("./routes/users");
 const auth = require("./routes/auth");
 const testimonies = require("./routes/testimonies");
 var app = express();
+
+mongoose;
 
 if (!config.get("jwtPrivateKey")) {
   console.error("FATAL ERROR: jwtPrivateKey is not defined.");
@@ -31,8 +34,10 @@ app.use("/api/users", users);
 app.use("/api/auth", auth);
 app.use("/api/testimonies", testimonies);
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Listening on port ${port}...`));
+const port = process.env.PORT || config.get("port");
+const server = app.listen(port, () =>
+  winston.info(`Listening on port ${port}...`)
+);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
