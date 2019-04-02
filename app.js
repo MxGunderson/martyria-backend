@@ -1,5 +1,4 @@
 var createError = require("http-errors");
-var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
@@ -8,16 +7,17 @@ const Joi = require("joi");
 Joi.objectId = require("joi-objectid")(Joi);
 const _ = require("lodash");
 const mongoose = require("mongoose");
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
 const users = require("./routes/users");
 const auth = require("./routes/auth");
 const testimonies = require("./routes/testimonies");
-var app = express();
+const express = require("express");
+const app = express();
 
-mongoose;
+mongoose.connect('mongodb://localhost/martyria-test')
+    .then(() => console.log('Connected to MongoDB...'))
+    .catch(err => console.error('Could not connect to MongoDB...', err));
 
-if (!config.get("jwtPrivateKey")) {
+ if (!config.get("jwtPrivateKey")) {
   console.error("FATAL ERROR: jwtPrivateKey is not defined.");
   process.exit(1);
 }
@@ -27,9 +27,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
 app.use("/api/users", users);
 app.use("/api/auth", auth);
 app.use("/api/testimonies", testimonies);
