@@ -1,4 +1,6 @@
 # Martyria Express Backend
 
-## Documentation 
-Coming soon...
+## Documentation
+
+mac: export martyria_jwtPrivateKey=yourSecureKey
+windows: set martyria_jwtPrivateKey=yourSecureKey
