@@ -16,15 +16,14 @@ const Testimony = mongoose.model('Testimony', new mongoose.Schema({
         type: String,
         required: true,
         minlength: 10,
-        maxlength: 1000
+        maxlength: 2000
     }
 }));
 
 function validateTestimony(testimony) {
     const schema = {
         title: Joi.string().min(3).max(30).required(),
-        date: Joi.date(),
-        post: Joi.string().min(10).max(1000).required()
+        post: Joi.string().min(10).max(2000).required()
     };
 
     return Joi.validate(testimony, schema);
