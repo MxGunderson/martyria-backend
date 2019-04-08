@@ -16,8 +16,8 @@ router.post("/", async (req, res) => {
 
   let testimony = new Testimony({
     title: req.body.title,
-    date: req.body.date,
-    post: req.body.post
+    story: req.body.story,
+    author: req.body.author
   });
   testimony = await testimony.save();
 
@@ -33,8 +33,8 @@ router.put("/:id", async (req, res) => {
     req.params.id,
     {
       title: req.body.title,
-      date: req.body.date,
-      post: req.body.post
+      story: req.body.story,
+      author: req.body.author
     },
     { new: true }
   );
