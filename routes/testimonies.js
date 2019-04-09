@@ -1,3 +1,5 @@
+const auth = require("../middleware/auth");
+const admin = require("../middleware/admin");
 const { Testimony, validate } = require("../models/testimony");
 const mongoose = require("mongoose");
 const express = require("express");
