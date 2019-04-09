@@ -39,8 +39,8 @@ const User = mongoose.model("User", userSchema);
 function validateUser(user) {
   const schema = {
     name: Joi.string()
-      .min(5)
-      .max(50)
+      .min(2)
+      .max(40)
       .required(),
     email: Joi.string()
       .min(5)
@@ -48,8 +48,8 @@ function validateUser(user) {
       .required()
       .email(),
     password: Joi.string()
-      .min(5)
-      .max(255)
+      .min(8)
+      .max(50)
       .required()
   };
 
