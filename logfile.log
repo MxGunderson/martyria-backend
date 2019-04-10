@@ -65,3 +65,8 @@
 {"level":"info","message":"Connected to mongodb://localhost/martyria...","timestamp":"2019-04-10T04:05:58.128Z"}
 {"level":"info","message":"Listening on port 3000...","timestamp":"2019-04-10T04:10:27.900Z"}
 {"level":"info","message":"Connected to mongodb://localhost/martyria...","timestamp":"2019-04-10T04:10:27.964Z"}
+{"level":"info","message":"Connected to mongodb://localhost/martyria...","timestamp":"2019-04-10T20:28:50.130Z"}
+{"level":"info","message":"Listening on port 3000...","timestamp":"2019-04-10T20:30:25.480Z"}
+{"level":"info","message":"Connected to mongodb://localhost/martyria...","timestamp":"2019-04-10T20:30:25.566Z"}
+{"level":"info","message":"Listening on port 3000...","timestamp":"2019-04-10T20:47:46.448Z"}
+{"level":"info","message":"Connected to mongodb://localhost/martyria...","timestamp":"2019-04-10T20:47:46.511Z"}
