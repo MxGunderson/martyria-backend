@@ -68,11 +68,11 @@ You should see the list of users. That confirms that you have set up everything 
 
 (Optional) Environment Variables
 If you look at config/default.json, you'll see a property called jwtPrivateKey. This key is used to encrypt JSON web tokens. So, for security reasons, it should not be checked into the source control. I've set a default value here to make it easier for you to get up and running with this project. For a production scenario, you should store this key as an environment variable. -->
-
+<!--
 On Mac:
 
 export martyria_jwtPrivateKey=yourSecureKey
 
 On Windows:
 
-set martyria_jwtPrivateKey=yourSecureKey
+set martyria_jwtPrivateKey=yourSecureKey -->
