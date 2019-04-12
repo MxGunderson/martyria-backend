@@ -11,14 +11,6 @@ To run this project locally:
 - `npm start` to run nodemon in watch mode
 - Use postman to test endpoints
 
-* **On Mac:**
-
-`export martyria_jwtPrivateKey=yourSecureKey`
-
-**On Windows:**
-
-`set martyria_jwtPrivateKey=yourSecureKey`
-
 ## Overview of Project
 
 1. User is able to register an account. Password is hashed and salted with bcrypt and is stored in database
