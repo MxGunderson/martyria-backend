@@ -1,4 +1,4 @@
 {
   "jwtPrivateKey": "",
-  "db": "mongodb://localhost/martyria"
+  "db": "mongodb://martyria:Bethel1@ds211558.mlab.com:11558/martyria"
 }
