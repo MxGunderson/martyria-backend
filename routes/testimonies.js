@@ -1,18 +1,19 @@
+const { Testimony, validate } = require("../models/testimony");
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
-const { Testimony, validate } = require("../models/testimony");
+const validateObjectId = require("../middleware/validateObjectId");
 const mongoose = require("mongoose");
 const express = require("express");
 const router = express.Router();
 
 // get all testimonies
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
   const testimonies = await Testimony.find().sort("title");
   res.send(testimonies);
 });
 
 // add a new testimony
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -27,7 +28,7 @@ router.post("/", async (req, res) => {
 });
 
 // update a testimony
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
@@ -50,7 +51,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // delete a testimony
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", [auth, admin], async (req, res) => {
   const testimony = await Testimony.findByIdAndRemove(req.params.id);
 
   if (!testimony)
@@ -62,7 +63,7 @@ router.delete("/:id", async (req, res) => {
 });
 
 // get a single testimony
-router.get("/:id", async (req, res) => {
+router.get("/:id", [auth, validateObjectId], async (req, res) => {
   const testimony = await Testimony.findById(req.params.id);
 
   if (!testimony)
