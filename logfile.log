@@ -97,3 +97,5 @@
 {"level":"info","message":"Connected to mongodb://martyria:Bethel1@ds211558.mlab.com:11558/martyria...","timestamp":"2019-04-13T18:42:35.231Z"}
 {"level":"info","message":"Listening on port 3000...","timestamp":"2019-04-13T18:50:12.140Z"}
 {"level":"info","message":"Connected to mongodb://martyria:Bethel1@ds211558.mlab.com:11558/martyria...","timestamp":"2019-04-13T18:50:12.407Z"}
+{"level":"info","message":"Listening on port 3000...","timestamp":"2019-04-13T22:23:39.473Z"}
+{"level":"info","message":"Connected to mongodb://martyria:Bethel1@ds211558.mlab.com:11558/martyria...","timestamp":"2019-04-13T22:23:39.734Z"}
