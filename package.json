@@ -1,7 +1,7 @@
 {
   "name": "martyria",
   "version": "1.0.0",
-  "description": "",
+  "description": "BST final project",
   "main": "index.js",
   "scripts": {
     "test": "jest --watchAll --verbose",
@@ -11,7 +11,7 @@
     "node": "8.12.0"
   },
   "keywords": [],
-  "author": "",
+  "author": "Morgan Muse, Paul Rase",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^3.0.0",
