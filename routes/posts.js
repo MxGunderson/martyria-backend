@@ -1,4 +1,4 @@
-const { Testimony, validate } = require("../models/testimony");
+const { Post, validate } = require("../models/post");
 const auth = require("../middleware/auth");
 const admin = require("../middleware/admin");
 const validateObjectId = require("../middleware/validateObjectId");
@@ -6,33 +6,33 @@ const mongoose = require("mongoose");
 const express = require("express");
 const router = express.Router();
 
-// get all testimonies
+// get all posts
 router.get("/", auth, async (req, res) => {
-  const testimonies = await Testimony.find().sort("title");
-  res.send(testimonies);
+  const posts = await Post.find().sort("title");
+  res.send(posts);
 });
 
-// add a new testimony
+// add a new post
 router.post("/", auth, async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  let testimony = new Testimony({
+  let post = new Post({
     title: req.body.title,
     story: req.body.story,
     author: req.body.author
   });
-  testimony = await testimony.save();
+  post = await post.save();
 
-  res.send(testimony);
+  res.send(post);
 });
 
-// update a testimony
+// update a post
 router.put("/:id", auth, async (req, res) => {
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
 
-  const testimony = await Testimony.findByIdAndUpdate(
+  const post = await Post.findByIdAndUpdate(
     req.params.id,
     {
       title: req.body.title,
@@ -42,36 +42,36 @@ router.put("/:id", auth, async (req, res) => {
     { new: true }
   );
 
-  if (!testimony)
+  if (!post)
     return res
       .status(404)
       .send("The testimony with the given ID was not found");
 
-  res.send(testimony);
+  res.send(post);
 });
 
-// delete a testimony
+// delete a post
 router.delete("/:id", [auth, admin], async (req, res) => {
-  const testimony = await Testimony.findByIdAndRemove(req.params.id);
+  const post = await Post.findByIdAndRemove(req.params.id);
 
-  if (!testimony)
+  if (!post)
     return res
       .status(404)
       .send("The testimony with the given ID was not found");
 
-  res.send(testimony);
+  res.send(post);
 });
 
-// get a single testimony
+// get a single post
 router.get("/:id", [auth, validateObjectId], async (req, res) => {
-  const testimony = await Testimony.findById(req.params.id);
+  const post = await Post.findById(req.params.id);
 
-  if (!testimony)
+  if (!post)
     return res
       .status(404)
       .send("The testimony with the given ID was not found");
 
-  res.send(testimony);
+  res.send(post);
 });
 
 module.exports = router;

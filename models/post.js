@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
 
-const Testimony = mongoose.model(
-  "Testimony",
+const Post = mongoose.model(
+  "Post",
   new mongoose.Schema({
     title: {
       type: String,
@@ -29,7 +29,7 @@ const Testimony = mongoose.model(
   })
 );
 
-function validateTestimony(testimony) {
+function validatePost(post) {
   const schema = {
     title: Joi.string()
       .min(5)
@@ -45,8 +45,8 @@ function validateTestimony(testimony) {
       .required()
   };
 
-  return Joi.validate(testimony, schema);
+  return Joi.validate(post, schema);
 }
 
-exports.Testimony = Testimony;
-exports.validate = validateTestimony;
+exports.Post = Post;
+exports.validate = validatePost;

@@ -1,56 +1,56 @@
 const request = require("supertest");
-const { Testimony } = require("../../models/testimony");
+const { Post } = require("../../models/post");
 const { User } = require("../../models/user");
 const mongoose = require("mongoose");
 
 let server;
 
-describe("/api/testimonies", () => {
+describe("/api/posts", () => {
   beforeEach(() => {
     server = require("../../index");
   });
   afterEach(async () => {
     server.close();
-    await Testimony.remove({});
+    await Post.remove({});
   });
 
   describe("GET /", () => {
-    it("should return all testimonies", async () => {
-      const testimonies = [{ name: "testimony1" }, { name: "testimony2" }];
+    it("should return all posts", async () => {
+      const posts = [{ name: "post1" }, { name: "post2" }];
 
-      await Testimony.collection.insertMany(testimonies);
+      await Post.collection.insertMany(posts);
 
-      const res = await request(server).get("/api/testimonies");
+      const res = await request(server).get("/api/posts");
 
       expect(res.status).toBe(200);
       expect(res.body.length).toBe(2);
-      expect(res.body.some(g => g.name === "testimony1")).toBeTruthy();
-      expect(res.body.some(g => g.name === "testimony2")).toBeTruthy();
+      expect(res.body.some(g => g.name === "post1")).toBeTruthy();
+      expect(res.body.some(g => g.name === "post2")).toBeTruthy();
     });
   });
 
   describe("GET /:id", () => {
-    it("should return a testimony if valid id is passed", async () => {
-      const testimony = new Testimony({ name: "testimony1" });
-      await testimony.save();
+    it("should return a post if valid id is passed", async () => {
+      const post = new Post({ name: "post1" });
+      await post.save();
 
       const res = await request(server).get(
-        "/api/testimonies/" + testimony._id
+        "/api/posts/" + post._id
       );
 
       expect(res.status).toBe(200);
-      expect(res.body).toHaveProperty("name", testimony.name);
+      expect(res.body).toHaveProperty("name", post.name);
     });
 
     it("should return 404 if invalid id is passed", async () => {
-      const res = await request(server).get("/api/testimonies/1");
+      const res = await request(server).get("/api/posts/1");
 
       expect(res.status).toBe(404);
     });
 
-    it("should return 404 if no testimony with the given id exists", async () => {
+    it("should return 404 if no post with the given id exists", async () => {
       const id = mongoose.Types.ObjectId();
-      const res = await request(server).get("/api/testimonies/" + id);
+      const res = await request(server).get("/api/posts/" + id);
 
       expect(res.status).toBe(404);
     });
@@ -62,14 +62,14 @@ describe("/api/testimonies", () => {
 
     const exec = async () => {
       return await request(server)
-        .post("/api/testimonies")
+        .post("/api/posts")
         .set("x-auth-token", token)
         .send({ name });
     };
 
     beforeEach(() => {
       token = new User().generateAuthToken();
-      name = "testimony1";
+      name = "post1";
     });
 
     it("should return 401 if client is not logged in", async () => {
@@ -80,7 +80,7 @@ describe("/api/testimonies", () => {
       expect(res.status).toBe(401);
     });
 
-    it("should return 400 if testimony is less than 5 characters", async () => {
+    it("should return 400 if post is less than 5 characters", async () => {
       name = "1234";
 
       const res = await exec();
@@ -88,7 +88,7 @@ describe("/api/testimonies", () => {
       expect(res.status).toBe(400);
     });
 
-    it("should return 400 if testimony is more than 50 characters", async () => {
+    it("should return 400 if post is more than 50 characters", async () => {
       name = new Array(52).join("a");
 
       const res = await exec();
@@ -96,41 +96,41 @@ describe("/api/testimonies", () => {
       expect(res.status).toBe(400);
     });
 
-    it("should save the testimony if it is valid", async () => {
+    it("should save the post if it is valid", async () => {
       await exec();
 
-      const testimony = await Testimony.find({ name: "testimony1" });
+      const post = await Post.find({ name: "post1" });
 
-      expect(testimony).not.toBeNull();
+      expect(post).not.toBeNull();
     });
 
-    it("should return the testimony if it is valid", async () => {
+    it("should return the post if it is valid", async () => {
       const res = await exec();
 
       expect(res.body).toHaveProperty("_id");
-      expect(res.body).toHaveProperty("name", "testimony1");
+      expect(res.body).toHaveProperty("name", "post1");
     });
   });
 
   describe("PUT /:id", () => {
     let token;
     let newName;
-    let testimony;
+    let post;
     let id;
 
     const exec = async () => {
       return await request(server)
-        .put("/api/testimonies/" + id)
+        .put("/api/posts/" + id)
         .set("x-auth-token", token)
         .send({ name: newName });
     };
 
     beforeEach(async () => {
-      testimony = new Testimony({ name: "testimony1" });
-      await testimony.save();
+      post = new Post({ name: "post1" });
+      await post.save();
 
       token = new User().generateAuthToken();
-      id = testimony._id;
+      id = post._id;
       newName = "updatedName";
     });
 
@@ -142,7 +142,7 @@ describe("/api/testimonies", () => {
       expect(res.status).toBe(401);
     });
 
-    it("should return 400 if testimony is less than 5 characters", async () => {
+    it("should return 400 if post is less than 5 characters", async () => {
       newName = "1234";
 
       const res = await exec();
@@ -150,7 +150,7 @@ describe("/api/testimonies", () => {
       expect(res.status).toBe(400);
     });
 
-    it("should return 400 if testimony is more than 50 characters", async () => {
+    it("should return 400 if post is more than 50 characters", async () => {
       newName = new Array(52).join("a");
 
       const res = await exec();
@@ -166,7 +166,7 @@ describe("/api/testimonies", () => {
       expect(res.status).toBe(404);
     });
 
-    it("should return 404 if testimony with the given id was not found", async () => {
+    it("should return 404 if post with the given id was not found", async () => {
       id = mongoose.Types.ObjectId();
 
       const res = await exec();
@@ -174,15 +174,15 @@ describe("/api/testimonies", () => {
       expect(res.status).toBe(404);
     });
 
-    it("should update the testimony if input is valid", async () => {
+    it("should update the post if input is valid", async () => {
       await exec();
 
-      const updatedTestimony = await Testimony.findById(testimony._id);
+      const updatedPost = await Post.findById(post._id);
 
-      expect(updatedTestimony.name).toBe(newName);
+      expect(updatedPost.name).toBe(newName);
     });
 
-    it("should return the updated testimony if it is valid", async () => {
+    it("should return the updated post if it is valid", async () => {
       const res = await exec();
 
       expect(res.body).toHaveProperty("_id");
@@ -192,21 +192,21 @@ describe("/api/testimonies", () => {
 
   describe("DELETE /:id", () => {
     let token;
-    let testimony;
+    let post;
     let id;
 
     const exec = async () => {
       return await request(server)
-        .delete("/api/testimonies/" + id)
+        .delete("/api/posts/" + id)
         .set("x-auth-token", token)
         .send();
     };
 
     beforeEach(async () => {
-      testimony = new Testimony({ name: "testimony1" });
-      await testimony.save();
+      post = new Post({ name: "post1" });
+      await post.save();
 
-      id = testimony._id;
+      id = post._id;
       token = new User({ isAdmin: true }).generateAuthToken();
     });
 
@@ -234,7 +234,7 @@ describe("/api/testimonies", () => {
       expect(res.status).toBe(404);
     });
 
-    it("should return 404 if no testimony with the given id was found", async () => {
+    it("should return 404 if no post with the given id was found", async () => {
       id = mongoose.Types.ObjectId();
 
       const res = await exec();
@@ -242,19 +242,19 @@ describe("/api/testimonies", () => {
       expect(res.status).toBe(404);
     });
 
-    it("should delete the testimony if input is valid", async () => {
+    it("should delete the post if input is valid", async () => {
       await exec();
 
-      const testimonyInDb = await Testimony.findById(id);
+      const postInDb = await Post.findById(id);
 
-      expect(testimonyInDb).toBeNull();
+      expect(postInDb).toBeNull();
     });
 
-    it("should return the removed testimony", async () => {
+    it("should return the removed post", async () => {
       const res = await exec();
 
-      expect(res.body).toHaveProperty("_id", testimony._id.toHexString());
-      expect(res.body).toHaveProperty("name", testimony.name);
+      expect(res.body).toHaveProperty("_id", post._id.toHexString());
+      expect(res.body).toHaveProperty("name", post.name);
     });
   });
 });

@@ -1,5 +1,5 @@
 const { User } = require("../../models/user");
-const { Testimony } = require("../../models/testimony");
+const { Post } = require("../../models/post");
 const request = require("supertest");
 
 describe("auth middleware", () => {
@@ -7,7 +7,7 @@ describe("auth middleware", () => {
     server = require("../../index");
   });
   afterEach(async () => {
-    await Testimony.remove({});
+    await Post.remove({});
     server.close();
   });
 
@@ -15,9 +15,9 @@ describe("auth middleware", () => {
 
   const exec = () => {
     return request(server)
-      .post("/api/testimonies")
+      .post("/api/posts")
       .set("x-auth-token", token)
-      .send({ name: "testimony1" });
+      .send({ name: "post1" });
   };
 
   beforeEach(() => {
