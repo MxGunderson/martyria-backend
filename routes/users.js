@@ -39,25 +39,25 @@ router.post("/signup", async (req, res) => {
     .send(_.pick(user, ["_id", "name", "email"]));
 });
 
-// // update a user
-// router.put("/:id", auth, async (req, res) => {
-//   const { error } = validate(req.body);
-//   if (error) return res.status(400).send(error.details[0].message);
+// update a user
+router.put("/:id", auth, async (req, res) => {
+  const { error } = validate(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
 
-//   const user = await User.findByIdAndUpdate(
-//     req.params.id,
-//     {
-//       name: req.body.name,
-//       email: req.body.email,
-//       passowrd: req.body.password
-//     },
-//     { new: true }
-//   );
+  const user = await User.findByIdAndUpdate(
+    req.params.id,
+    {
+      name: req.body.name,
+      email: req.body.email,
+      passowrd: req.body.password
+    },
+    { new: true }
+  );
 
-//   if (!user)
-//     return res.status(404).send("The user with the given ID was not found");
+  if (!user)
+    return res.status(404).send("The user with the given ID was not found");
 
-//   res.send(user);
-// });
+  res.send(user);
+});
 
 module.exports = router;
