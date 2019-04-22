@@ -51,7 +51,7 @@ router.put("/:id", auth, async (req, res) => {
 });
 
 // delete a post
-router.delete("/:id", [auth, admin], async (req, res) => {
+router.delete("/:id", [auth, admin, validateObjectId], async (req, res) => {
   const post = await Post.findByIdAndRemove(req.params.id);
 
   if (!post)
