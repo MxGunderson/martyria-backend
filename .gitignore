@@ -1,4 +1,5 @@
 /node_modules
 .env
-/logging.js
 /default.json
+/logfile.log
+/uncaughtExceptions.log

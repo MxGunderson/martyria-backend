@@ -2,6 +2,8 @@ const winston = require("winston");
 const express = require("express");
 const app = express();
 
+require("dotenv/config");
+
 require("./startup/logging")();
 require("./startup/cors")(app);
 require("./startup/routes")(app);

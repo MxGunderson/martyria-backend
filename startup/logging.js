@@ -2,6 +2,8 @@ const winston = require("winston");
 require("winston-mongodb");
 require("express-async-errors");
 
+const dbUrl = process.env.DATABASE_URL;
+
 module.exports = function() {
   winston.handleExceptions(
     new winston.transports.Console({ colorize: true, prettyPrint: true }),
@@ -14,7 +16,7 @@ module.exports = function() {
 
   winston.add(winston.transports.File, { filename: "logfile.log" });
   winston.add(winston.transports.MongoDB, {
-    db: "mongodb://martyria:Bethel1@ds211558.mlab.com:11558/martyria",
+    db: `${dbUrl}`,
     level: "info"
   });
 };
