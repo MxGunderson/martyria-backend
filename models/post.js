@@ -18,7 +18,7 @@ const Post = mongoose.model(
       type: String,
       required: true,
       minlength: 10,
-      maxlength: 2000
+      maxlength: 4000
     },
     author: {
       type: String,
@@ -37,7 +37,7 @@ function validatePost(post) {
       .required(),
     story: Joi.string()
       .min(10)
-      .max(2000)
+      .max(4000)
       .required(),
     author: Joi.string()
       .min(2)
