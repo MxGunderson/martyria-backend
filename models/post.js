@@ -7,8 +7,8 @@ const Post = mongoose.model(
     title: {
       type: String,
       required: true,
-      minlength: 5,
-      maxlength: 55
+      minlength: 1,
+      maxlength: 100
     },
     date: {
       type: Date,
@@ -17,13 +17,13 @@ const Post = mongoose.model(
     story: {
       type: String,
       required: true,
-      minlength: 10,
+      minlength: 1,
       maxlength: 4000
     },
     author: {
       type: String,
       required: true,
-      minlength: 2,
+      minlength: 1,
       maxlength: 30
     }
   })
@@ -32,15 +32,15 @@ const Post = mongoose.model(
 function validatePost(post) {
   const schema = {
     title: Joi.string()
-      .min(5)
-      .max(55)
+      .min(1)
+      .max(100)
       .required(),
     story: Joi.string()
-      .min(10)
+      .min(1)
       .max(4000)
       .required(),
     author: Joi.string()
-      .min(2)
+      .min(1)
       .max(30)
       .required()
   };
