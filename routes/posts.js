@@ -8,7 +8,7 @@ const router = express.Router();
 
 // get all posts
 router.get("/", auth, async (req, res) => {
-  const posts = await Post.find().sort("title");
+  const posts = await Post.find().sort({date: -1});
   res.send(posts);
 });
 
